@@ -1,12 +1,11 @@
 import json
 import os
 from typing import Literal
-from engine.base_engine import Engine
 from engine.gpt import GPTEngine
 from sp_data import Sp_data
 
 class SP:
-    def __init__(self, data: Sp_data, engine: Engine):
+    def __init__(self, data: Sp_data, engine):
         self.data = data
         self.engine = engine
         self.set_system_message()
@@ -19,9 +18,9 @@ class SP:
         {self.data.basics}\n
         3.你应该主动表达自己的主诉，在医生询问后，也应该强调自己的主诉。主诉如下：
         {self.data.symptoms}\n
-        4.仅当医生的问题问到相关隐藏信息，你才能说出自己对应的隐藏信息，不需要完全相同。医生问题和隐藏信息的对应关系如下：
+        4.仅当医生的问题与对应隐藏信息有关，你才能说出自己对应的隐藏信息。医生问题和隐藏信息的对应关系如下：
         {self.data.hiddens}\n
-        5.你的相关个人特质如下，请模仿这些特质进行对话。
+        5.你的相关个人特质如下，请模仿这些特质进行对话，但不要模仿过度。尽量简短的回答，减少每次重复的话
         {self.data.personalities}\n
         """
 
@@ -34,7 +33,6 @@ class SP:
         self.memorize(response, "assistant")
         return response
 
-    
 
 if __name__ == "__main__":
     sp_data = Sp_data()
