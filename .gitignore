@@ -5,7 +5,8 @@ __pycache__/
 tools/*.sh
 # C extensions
 *.so
-
+frontend/
+backend/
 # Distribution / packaging
 .Python
 build/
