@@ -36,29 +36,70 @@ AI-StandardPatient 是一个智能的标准化病人模拟系统，能够：
 
 ## 快速开始
 
+### 🚀 一键启动（推荐）
+
+```bash
+# 一键启动前后端服务
+python start_all.py
+
+# 服务启动后自动打开浏览器
+# 前端地址: http://localhost:3000
+# 后端API: http://localhost:8080/api
+```
+
+### 📋 分别启动
+
+#### 启动后端服务
+```bash
+# 方法1: 使用启动脚本
+python start_server.py
+
+# 方法2: 直接启动
+cd backend
+python app.py
+```
+
+#### 启动前端服务
+```bash
+# 方法1: 使用前端服务器
+cd frontend
+python server.py
+
+# 方法2: 使用Python内置服务器
+cd frontend
+python -m http.server 3000
+```
+
+### 🌐 访问应用
+
+- **前端界面**: http://localhost:3000 （直接访问根路径即可）
+- **后端API**: http://localhost:8080/api
+- **健康检查**: http://localhost:8080/api/health
+
 ### 环境要求
 - Python 3.8+
 - OpenAI API密钥或兼容的API服务
 
 ### 安装依赖
 ```bash
-pip install openai
+# 安装基础依赖
+pip install -r requirements.txt
+
+# 或使用启动脚本自动安装
+python start_all.py
 ```
 
 ### 配置环境变量
-根据你使用的API服务选择对应的配置脚本：
-
+1. 复制环境变量模板：
 ```bash
-# 使用OpenAI官方API
-source tools/SET_OPENAI.sh
-
-# 或使用DeepSeek API
-source tools/SET_DEEPSEEK.sh
+cp .env.example .env
 ```
 
-### 运行示例
+2. 编辑 `.env` 文件，设置你的API密钥：
 ```bash
-python sp.py
+API_KEY=your-openai-api-key-here
+MODEL_BASE=https://api.openai.com/v1
+MODEL_NAME=gpt-3.5-turbo
 ```
 
 ## 项目结构
@@ -66,9 +107,25 @@ python sp.py
 ```
 AI-StandardPatient/
 ├── README.md              # 项目说明文档
-├── sp.py                  # 主程序入口
+├── start_all.py           # 一键启动脚本
+├── test_frontend.py       # 前端测试脚本
+├── start_server.py        # 后端启动脚本
+├── test_api.py           # API测试脚本
+├── requirements.txt       # 依赖清单
+├── .env.example          # 环境变量模板
+├── sp.py                  # 命令行程序入口
 ├── sp_data.py             # SP数据结构定义
 ├── base_agent.py          # 基础Agent抽象类
+├── backend/               # 后端API服务
+│   ├── app.py            # Flask应用主文件
+│   ├── config.py         # 配置管理
+│   └── README.md         # 后端文档
+├── frontend/              # Web前端界面
+│   ├── index.html        # 主页面
+│   ├── styles.css        # 样式文件
+│   ├── app.js           # JavaScript应用
+│   ├── server.py        # 前端服务器
+│   └── README.md        # 前端文档
 ├── engine/                # 语言模型引擎
 │   ├── __init__.py
 │   ├── base_engine.py     # 引擎基类
@@ -80,7 +137,8 @@ AI-StandardPatient/
 │   ├── SET_OPENAI.sh     # OpenAI配置脚本
 │   └── SET_DEEPSEEK.sh   # DeepSeek配置脚本
 └── assets/               # 资源文件
-    └── fig.pdf           # 项目图表
+    ├── fig.pdf           # 项目图表
+    └── fig.png
 ```
 
 ## 数据格式
@@ -116,29 +174,51 @@ SP数据包含以下主要字段：
 }
 ```
 
-## 使用示例
+## 使用方式
 
-### 基本对话示例
+### 🌐 Web界面（推荐）
 
-```python
-from engine.gpt import GPTEngine
-from sp_data import Sp_data
+1. **启动服务**：
+   ```bash
+   python start_all.py
+   ```
 
-# 加载病例数据
-sp_data = Sp_data()
-sp_data.load_from_json("presets/test.json")
+2. **访问界面**：
+   - 浏览器会自动打开前端界面
+   - 或手动访问 http://localhost:3000
 
-# 创建SP实例
-sp = SP(sp_data, GPTEngine())
+3. **创建会话**：
+   - 在左侧输入会话ID
+   - 选择预设病例或输入自定义数据
+   - 点击"创建会话"
 
-# 开始对话
-response = sp.speak("您好，请问您哪里不舒服？")
-print(f"病人: {response}")
+4. **开始对话**：
+   - 在聊天区域输入医生问题
+   - AI病人会根据病例设定回答
+   - 支持快速问题模板
+
+### 💻 命令行界面
+
+对于喜欢命令行的用户：
+
+```bash
+# 直接运行命令行版本
+python sp.py
 ```
 
-### 自定义病例
+### 📡 API接口
 
-你可以创建自己的病例JSON文件，参考 `presets/test.json` 的格式。
+对于开发者集成：
+
+```bash
+# 启动API服务
+cd backend
+python app.py
+
+# API文档地址: http://localhost:8080/api/health
+```
+
+详细API文档请参考 `backend/README.md`。
 
 ## 配置说明
 

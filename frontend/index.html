@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI标准化病人系统</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-user-md"></i>
+                    <h1>AI标准化病人系统</h1>
+                </div>
+                <div class="header-info">
+                    <div class="status-indicator" id="connectionStatus">
+                        <span class="status-dot"></span>
+                        <span class="status-text">连接中...</span>
+                    </div>
+                    <div class="session-count" id="sessionCount">
+                        <i class="fas fa-users"></i>
+                        <span>0 个会话</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <main class="main-content">
+            <!-- 侧边栏 -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-plus-circle"></i> 创建会话</h3>
+                    <div class="create-session-form">
+                        <div class="form-group">
+                            <label for="sessionId">会话ID:</label>
+                            <input type="text" id="sessionId" placeholder="输入会话ID" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>选择病例:</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="dataSource" value="preset" checked />
+                                    <span>使用预设病例</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="dataSource" value="custom" />
+                                    <span>自定义病例</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="presetSection" class="form-group">
+                            <label for="presetSelect">预设病例:</label>
+                            <select id="presetSelect">
+                                <option value="">加载中...</option>
+                            </select>
+                        </div>
+
+                        <div id="customSection" class="form-group" style="display: none;">
+                            <label for="customData">自定义数据 (JSON):</label>
+                            <textarea id="customData" rows="8" placeholder='请输入JSON格式的病例数据，例如:
+{
+  "basics": {
+    "name": "张三",
+    "性别": "男",
+    "年龄": 30
+  },
+  "disease": "感冒",
+  "symptoms": ["头痛", "发热"],
+  "personalities": ["配合治疗"]
+}'></textarea>
+                        </div>
+
+                        <button class="btn btn-primary" id="createSessionBtn">
+                            <i class="fas fa-plus"></i> 创建会话
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-list"></i> 活跃会话</h3>
+                    <div class="session-list" id="sessionList">
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>暂无活跃会话</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 聊天区域 -->
+            <section class="chat-container">
+                <div class="chat-header" id="chatHeader">
+                    <div class="patient-info" style="display: none;">
+                        <div class="patient-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="patient-details">
+                            <h3 id="patientName">患者姓名</h3>
+                            <p id="patientDisease">疾病信息</p>
+                        </div>
+                        <div class="session-actions">
+                            <button class="btn btn-small" id="sessionInfoBtn" title="会话信息">
+                                <i class="fas fa-info-circle"></i>
+                            </button>
+                            <button class="btn btn-small" id="historyBtn" title="对话历史">
+                                <i class="fas fa-history"></i>
+                            </button>
+                            <button class="btn btn-small btn-danger" id="deleteSessionBtn" title="删除会话">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="welcome-message" id="welcomeMessage">
+                        <h3>欢迎使用AI标准化病人系统</h3>
+                        <p>请从左侧创建一个新会话开始对话</p>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <!-- 消息将在这里动态生成 -->
+                </div>
+
+                <div class="chat-input-container" id="chatInputContainer" style="display: none;">
+                    <div class="chat-input">
+                        <input type="text" id="messageInput" placeholder="请输入您要询问病人的问题..." />
+                        <button class="btn btn-primary" id="sendBtn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="quick-questions">
+                        <span class="quick-question-label">快速问题:</span>
+                        <button class="quick-question" data-question="您好，请问您哪里不舒服？">基本问诊</button>
+                        <button class="quick-question" data-question="症状持续多长时间了？">症状时间</button>
+                        <button class="quick-question" data-question="您有什么过敏史吗？">过敏史</button>
+                        <button class="quick-question" data-question="您的家族病史如何？">家族史</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 模态框 -->
+        <div class="modal" id="sessionInfoModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>会话详细信息</h3>
+                    <button class="modal-close" id="closeSessionInfo">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="sessionInfoContent">
+                    <!-- 会话信息内容 -->
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="historyModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>对话历史</h3>
+                    <button class="modal-close" id="closeHistory">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="historyContent">
+                    <!-- 对话历史内容 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 加载动画 -->
+        <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>处理中...</p>
+            </div>
+        </div>
+
+        <!-- 通知系统 -->
+        <div class="notifications" id="notifications"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
