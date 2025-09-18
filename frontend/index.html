@@ -34,6 +34,20 @@
             <!-- 侧边栏 -->
             <aside class="sidebar">
                 <div class="sidebar-section">
+                    <a href="prompt_editor.html" class="btn btn-link" style="display:block;margin-bottom:16px;font-size:1.1em;text-align:center;background:#f5f5f5;border-radius:8px;padding:8px 0;box-shadow:0 1px 4px #eee;">
+                        <i class="fas fa-edit"></i> Prompt编辑
+                    </a>
+                    
+                    <div class="form-group" style="margin-bottom:16px;">
+                        <label for="promptSelect">当前Prompt模板:</label>
+                        <select id="promptSelect">
+                            <option value="">加载中...</option>
+                        </select>
+                        <div style="margin-top:4px;font-size:0.9em;color:#666;">
+                            当前使用: <span id="currentPromptDisplay">未设置</span>
+                        </div>
+                    </div>
+                    
                     <h3><i class="fas fa-plus-circle"></i> 创建会话</h3>
                     <div class="create-session-form">
                         <div class="form-group">
@@ -141,6 +155,17 @@
                         <button class="quick-question" data-question="您有什么过敏史吗？">过敏史</button>
                         <button class="quick-question" data-question="您的家族病史如何？">家族史</button>
                     </div>
+                    <div class="exam-actions">
+                        <button class="btn btn-secondary" id="requestExamBtn">
+                            <i class="fas fa-file-medical"></i> 请求检查报告
+                        </button>
+                        <button class="btn btn-info" id="examListBtn">
+                            <i class="fas fa-list"></i> 检查报告列表
+                        </button>
+                        <button class="btn btn-warning" id="scoreReportBtn">
+                            <i class="fas fa-chart-line"></i> 查看评分报告
+                        </button>
+                    </div>
                 </div>
             </section>
         </main>
@@ -171,6 +196,44 @@
                 <div class="modal-body" id="historyContent">
                     <!-- 对话历史内容 -->
                 </div>
+            </div>
+        </div>
+
+        <!-- 检查报告弹窗 -->
+        <div class="modal" id="examModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>检查报告</h3>
+                    <button class="modal-close" id="closeExamModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="examModalContent"></div>
+            </div>
+        </div>
+        <!-- 检查报告列表弹窗 -->
+        <div class="modal" id="examListModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>检查报告列表</h3>
+                    <button class="modal-close" id="closeExamList">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="examListContent"></div>
+            </div>
+        </div>
+
+        <!-- 评分报告弹窗 -->
+        <div class="modal" id="scoreModal">
+            <div class="modal-content" style="max-width: 800px;">
+                <div class="modal-header">
+                    <h3>问诊评分报告</h3>
+                    <button class="modal-close" id="closeScoreModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="scoreModalContent"></div>
             </div>
         </div>
 

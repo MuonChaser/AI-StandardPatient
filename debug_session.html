@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Session Debug Test</title>
+</head>
+<body>
+    <h1>Session State Debug</h1>
+    <div id="debug-info"></div>
+    
+    <script>
+        // 模拟AppState
+        const AppState = {
+            currentSession: null,
+            sessions: []
+        };
+        
+        function updateDebugInfo() {
+            const debugDiv = document.getElementById('debug-info');
+            debugDiv.innerHTML = `
+                <h2>Current Session Info:</h2>
+                <pre>${JSON.stringify(AppState.currentSession, null, 2)}</pre>
+                
+                <h2>All Sessions:</h2>
+                <pre>${JSON.stringify(AppState.sessions, null, 2)}</pre>
+            `;
+        }
+        
+        // 测试session数据
+        AppState.sessions = [
+            {
+                session_id: "test-session-1",
+                patient_name: "测试病人1",
+                disease: "感冒",
+                message_count: 5
+            }
+        ];
+        
+        AppState.currentSession = AppState.sessions[0];
+        
+        updateDebugInfo();
+        
+        // 测试session_id访问
+        console.log('Test session_id access:');
+        console.log('AppState.currentSession.session_id:', AppState.currentSession.session_id);
+        console.log('Type:', typeof AppState.currentSession.session_id);
+        
+        // 测试URL构造
+        const testUrl = `/api/scoring/suggestions/${AppState.currentSession.session_id}`;
+        console.log('Test URL:', testUrl);
+    </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+{
+  "disease": "直肠癌",
+  "basics": {
+    "name": "张三",
+    "age": 52,
+    "gender": "男",
+    "marital_status": "已婚",
+    "occupation": "未详",
+    "children": [
+      {"relation": "儿子", "health": "健康"}
+    ]
+  },
+  "chief_complaint": "排大便次数增加1月",
+  "present_illness": {
+    "description": "患者1月前开始无明显诱因出现排大便次数增加，大便从每日1次增加到每日2~4次，且渐有加重。大便软，大便表面偶尔带少许粘液或血液，无里急后重、排便不尽感。无腹胀、腹痛、恶心、呕吐无。未予就医及治疗。精神食欲好，小便正常，体重无改变。",
+    "onset": "慢性",
+    "duration": "1月",
+    "progression": "渐有加重"
+  },
+  "past_history": {
+    "surgery": ["20年前阑尾炎手术"],
+    "allergy": [],
+    "disease": ["35年前肺结核治愈"]
+  },
+  "personal_history": {
+    "smoking": true,
+    "drinking": true,
+    "smoking_details": "有吸烟史20多年",
+    "drinking_details": "偶尔少量饮酒"
+  },
+  "family_history": {
+    "mother": "身体健康",
+    "father": "有高血压病",
+    "spouse": "身体健康"
+  },
+  "physical_exam": {
+    "temperature": 36.5,
+    "pulse": 78,
+    "respiration": 16,
+    "bp": "120/80",
+    "appearance": "体型中等，无贫血貌",
+    "lymph_nodes": "不大",
+    "heart_lung": "心肺无异常",
+    "abdomen": "腹平软，全腹无压痛、肌紧张及反跳痛",
+    "liver_spleen": "未及",
+    "bowel_sounds": "3次/分",
+    "rectal_exam": "K-C位10~12点钟，距肛缘7cm处扪及一隆起溃疡性病变，约1.0*1.0cm大小，质地中等，活动度好，指套染少许暗红色血性液体",
+    "legs": "双下肢不肿"
+  },
+  "auxiliary_exam": {
+    "blood": {
+      "Hb": "140g/L",
+      "WBC": "6.3×10^9/L",
+      "N": "65%",
+      "L": "35%",
+      "Pt": "230×10^9/L"
+    },
+    "ultrasound": "肝、胆、脾、胰、肾未见异常",
+    "colonoscopy": "直肠距肛缘7cm处见一隆起溃疡性病变，约1.0*1.0cm大小，活检质脆",
+    "pathology": "直肠腺癌"
+  },
+  "diagnosis": {
+    "primary": "直肠肿瘤（直肠癌可能性大）",
+    "differential": ["直肠腺瘤", "溃疡性结直肠炎", "肠结核", "克罗恩病"],
+    "basis": [
+      "慢性病程，排大便次数增加2月，大便从每日1次增加到每日2~4次，且渐有加重。大便软，大便表面偶尔带少许粘液或血液。",
+      "查体：直肠指检：K-C位10~12点钟，距肛缘7cm处扪及一隆起溃疡性病变，无其他阳性体征。",
+      "辅助检查：血常规正常，B超未见异常。"
+    ]
+  },
+  "treatment": {
+    "surgery": ["直肠癌根治术（Dixon）"],
+    "adjuvant": ["根据术后诊断酌情行化疗", "放疗", "分子靶向治疗", "生物免疫治疗"]
+  },
+  "hidden_questions": [
+    {
+      "question": "哪里不舒服？",
+      "answer": "主要是排大便次数较前增加",
+      "weight": 1.0
+    },
+    {
+      "question": "多久了？",
+      "answer": "大约有2个月，偶尔还有点血",
+      "weight": 1.0
+    },
+    {
+      "question": "具体与以前有什么不一样？",
+      "answer": "以前每天1次，这个月每天2~4次",
+      "weight": 1.0
+    },
+    {
+      "question": "大便是什么状态的，什么颜色？",
+      "answer": "软的，黄色",
+      "weight": 1.0
+    },
+    {
+      "question": "血是什么样的",
+      "answer": "污红的。",
+      "weight": 1.0
+    },
+    {
+      "question": "血与大便混在一起还是在表面？",
+      "answer": "混在一起的。",
+      "weight": 1.0
+    },
+    {
+      "question": "大便带粘液吗？",
+      "answer": "有时有",
+      "weight": 1.0
+    },
+    {
+      "question": "有没有里急后重、排便不尽感？",
+      "answer": "没有",
+      "weight": 1.0
+    },
+    {
+      "question": "有没有腹胀、腹痛、恶心、呕吐？",
+      "answer": "没有",
+      "weight": 1.0
+    },
+    {
+      "question": "自己发觉有发烧吗？小便颜色有什么不对吗？",
+      "answer": "没有发烧，小便颜色没有太注意，好像正常的吧。",
+      "weight": 1.0
+    },
+    {
+      "question": "之前去哪里看过这个病吗？做过什么检查或用过什么药？",
+      "answer": "没去看过医生，也没用过药。",
+      "weight": 1.0
+    },
+    {
+      "question": "体重最近有变化吗？",
+      "answer": "没有",
+      "weight": 1.0
+    },
+    {
+      "question": "近来你的精神和体力如何？",
+      "answer": "还可以",
+      "weight": 1.0
+    },
+    {
+      "question": "最近胃口怎么样？",
+      "answer": "胃口挺好的",
+      "weight": 1.0
+    },
+    {
+      "question": "以前得过什么病吗？有吃药吗？治好了吗？在哪里看的？",
+      "answer": "17岁的时候得过肺结核；吃药吃了大概1年，后来也查照过X片，医生说好了。近两年体健还照过X片都说没问题；在重庆结核病医院治的。",
+      "weight": 1.0
+    },
+    {
+      "question": "有做过什么手术或者受过什么伤么？",
+      "answer": "32岁的时候做过阑尾炎手术，没受过伤。",
+      "weight": 1.0
+    },
+    {
+      "question": "有没有什么药物或食物过敏？",
+      "answer": "没有",
+      "weight": 1.0
+    },
+    {
+      "question": "有没有打过预防针？",
+      "answer": "小的时候打过，不记得打过几次了",
+      "weight": 1.0
+    },
+    {
+      "question": "有没有运动时心累、心慌、气促？",
+      "answer": "没有",
+      "weight": 1.0
+    },
+    {
+      "question": "有没有头昏、脚肿？",
+      "answer": "没有",
+      "weight": 1.0
+    },
+    {
+      "question": "有什么特殊的爱好吗/平时抽烟吗",
+      "answer": "抽烟20多年了，以前多的时候没天1包多，近来少些了。",
+      "weight": 1.0
+    },
+    {
+      "question": "询问家庭情况或家族史",
+      "answer": "如实讲述",
+      "weight": 1.0
+    }
+  ],
+  "patient_emotion": "开始较为紧张与担忧，害怕是癌症，愿意配合医生，希望医生能够给予合理的解释，给出听起来合理的治疗方案",
+  "patient_expectation": "医生给出明确诊断，是癌症的话希望得知治愈几率、以后是否能够正常上班、能否保肛，希望得到情绪上的安抚。"
+}

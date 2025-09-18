@@ -1,0 +1,139 @@
+{
+  "basics": {
+    "name": "李华",
+    "age": 45,
+    "gender": "男",
+    "occupation": "教师"
+  },
+  "chief_complaint": "胸痛3小时",
+  "present_illness": {
+    "onset": "3小时前突然发作",
+    "location": "胸骨后",
+    "nature": "压榨性疼痛",
+    "radiation": "向左肩臂放射",
+    "severity": "剧烈",
+    "duration": "持续性",
+    "triggers": "情绪激动后",
+    "relief": "休息后稍缓解"
+  },
+  "physical_exam": {
+    "vital_signs": {
+      "血压": "160/95 mmHg",
+      "心率": "110次/分",
+      "呼吸": "22次/分",
+      "体温": "36.8°C"
+    },
+    "cardiovascular": {
+      "心界": "向左扩大",
+      "心音": "心率齐，可闻及S4奔马律",
+      "杂音": "无"
+    }
+  },
+  "auxiliary_exam": {
+    "ecg": "ST段抬高，T波倒置",
+    "cardiac_enzymes": "肌钙蛋白I升高",
+    "blood": {
+      "白细胞": "12.5×10^9/L",
+      "血红蛋白": "140g/L",
+      "血小板": "280×10^9/L"
+    }
+  },
+  "diagnosis": {
+    "primary": "急性心肌梗死",
+    "secondary": ["高血压病", "冠心病"]
+  },
+  "treatment": {
+    "emergency": ["吸氧", "静脉通路", "心电监护"],
+    "medication": ["阿司匹林", "氯吡格雷", "阿托伐他汀"],
+    "intervention": "急诊PCI"
+  },
+  "personalities": ["焦虑", "配合治疗", "担心家庭"],
+  "patient_emotion": "焦虑恐惧",
+  "patient_expectation": "希望尽快缓解症状，担心生命安全",
+  "hidden_questions": [
+    {
+      "question": "既往有无心脏病史",
+      "weight": 2.0,
+      "category": "既往史",
+      "keywords": ["心脏病", "冠心病", "心肌梗死", "心绞痛", "既往", "以前", "病史"],
+      "description": "了解患者既往心血管疾病史对诊断至关重要"
+    },
+    {
+      "question": "家族史中有无心脏病",
+      "weight": 1.5,
+      "category": "家族史",
+      "keywords": ["家族", "家人", "父母", "兄弟", "姐妹", "心脏病", "猝死"],
+      "description": "心血管疾病具有遗传倾向性"
+    },
+    {
+      "question": "吸烟史",
+      "weight": 2.0,
+      "category": "社会史",
+      "keywords": ["吸烟", "抽烟", "烟草", "香烟", "戒烟"],
+      "description": "吸烟是冠心病的重要危险因素"
+    },
+    {
+      "question": "饮酒史",
+      "weight": 1.0,
+      "category": "社会史",
+      "keywords": ["饮酒", "喝酒", "酒精", "白酒", "啤酒"],
+      "description": "了解酒精摄入情况"
+    },
+    {
+      "question": "高血压病史",
+      "weight": 2.0,
+      "category": "既往史",
+      "keywords": ["高血压", "血压高", "降压药", "血压"],
+      "description": "高血压是冠心病的主要危险因素"
+    },
+    {
+      "question": "糖尿病史",
+      "weight": 2.0,
+      "category": "既往史",
+      "keywords": ["糖尿病", "血糖", "降糖药", "胰岛素"],
+      "description": "糖尿病是冠心病的重要危险因素"
+    },
+    {
+      "question": "血脂异常史",
+      "weight": 1.5,
+      "category": "既往史",
+      "keywords": ["血脂", "胆固醇", "甘油三酯", "血脂高", "他汀"],
+      "description": "血脂异常与冠心病密切相关"
+    },
+    {
+      "question": "用药史",
+      "weight": 1.5,
+      "category": "既往史",
+      "keywords": ["药物", "用药", "服药", "药品", "治疗"],
+      "description": "了解当前用药情况"
+    },
+    {
+      "question": "过敏史",
+      "weight": 1.0,
+      "category": "既往史",
+      "keywords": ["过敏", "过敏史", "药物过敏", "食物过敏"],
+      "description": "用药安全的重要信息"
+    },
+    {
+      "question": "疼痛的诱发因素",
+      "weight": 2.0,
+      "category": "现病史",
+      "keywords": ["诱因", "诱发", "什么引起", "怎么引起", "为什么"],
+      "description": "了解疼痛的诱发因素有助于诊断"
+    },
+    {
+      "question": "疼痛的缓解因素",
+      "weight": 1.5,
+      "category": "现病史",
+      "keywords": ["缓解", "减轻", "好转", "什么能减轻", "怎么缓解"],
+      "description": "了解疼痛的缓解方式"
+    },
+    {
+      "question": "伴随症状",
+      "weight": 2.0,
+      "category": "现病史",
+      "keywords": ["伴随", "同时", "还有", "其他症状", "恶心", "呕吐", "出汗", "气促"],
+      "description": "心肌梗死常伴有恶心、呕吐、出汗等症状"
+    }
+  ]
+}

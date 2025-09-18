@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt编辑与测试 - AI标准化病人系统</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .prompt-editor-area { 
+            width: 100%; 
+            height: 350px; 
+            font-family: 'Consolas', 'Monaco', monospace; 
+            font-size: 14px;
+            line-height: 1.5;
+            resize: vertical;
+        }
+        .var-list { 
+            margin: 15px 0; 
+            padding: 15px;
+            background: var(--light-color);
+            border-radius: var(--radius);
+        }
+        .var-tag { 
+            display: inline-block;
+            background: var(--primary-color); 
+            color: white;
+            border-radius: 12px; 
+            padding: 4px 8px; 
+            margin: 3px 6px 3px 0; 
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .var-tag:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+        .backup-section { 
+            margin: 15px 0; 
+            padding: 15px;
+            background: var(--light-color);
+            border-radius: var(--radius);
+        }
+        .backup-item {
+            display: inline-block;
+            margin: 5px 8px 5px 0;
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 13px;
+        }
+        .test-result { 
+            background: white; 
+            border: 1px solid var(--border-color); 
+            border-radius: var(--radius);
+            padding: 15px; 
+            margin-top: 15px; 
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .preset-selection {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-edit"></i>
+                    <h1>Prompt编辑与测试</h1>
+                </div>
+                <div class="header-info">
+                    <div class="status-indicator" id="connectionStatus">
+                        <span class="status-dot"></span>
+                        <span class="status-text">连接中...</span>
+                    </div>
+                    <a href="index.html" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> 返回主页
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <main class="main-content">
+            <!-- 侧边栏 -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-file-alt"></i> Prompt文件管理</h3>
+                    <div class="form-group">
+                        <label for="promptSelect">选择Prompt文件:</label>
+                        <select id="promptSelect"></select>
+                    </div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <button id="loadPromptBtn" class="btn btn-primary"><i class="fas fa-download"></i> 加载</button>
+                        <button id="newPromptBtn" class="btn btn-success"><i class="fas fa-plus"></i> 新建</button>
+                        <button id="deletePromptBtn" class="btn btn-danger"><i class="fas fa-trash"></i> 删除</button>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-save"></i> 文件操作</h3>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <button id="backupBtn" class="btn btn-warning"><i class="fas fa-copy"></i> 保存副本</button>
+                        <button id="saveBtn" class="btn btn-danger"><i class="fas fa-save"></i> 覆盖保存</button>
+                        <button id="saveAsBtn" class="btn btn-success"><i class="fas fa-file-export"></i> 另存为</button>
+                        <button id="formatBtn" class="btn btn-primary"><i class="fas fa-magic"></i> 格式化</button>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-flask"></i> 对话测试</h3>
+                    <div class="preset-selection">
+                        <div class="form-group">
+                            <label>选择测试预设:</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="testDataSource" value="preset" checked />
+                                    <span>使用预设病例</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="testDataSource" value="custom" />
+                                    <span>自定义数据</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="presetTestSection" class="form-group">
+                            <label for="testPresetSelect">预设病例:</label>
+                            <select id="testPresetSelect">
+                                <option value="">加载中...</option>
+                            </select>
+                        </div>
+
+                        <div id="customTestSection" class="form-group" style="display: none;">
+                            <label for="customTestData">自定义数据 (JSON):</label>
+                            <textarea id="customTestData" rows="4" placeholder='{"basics": {"name": "王五", "age": 28}}'></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="doctorMessage">医生问题:</label>
+                        <input type="text" id="doctorMessage" placeholder="请输入医生的问题..." />
+                    </div>
+                    
+                    <button id="testBtn" class="btn btn-primary" style="width:100%">
+                        <i class="fas fa-play"></i> 测试对话
+                    </button>
+                </div>
+            </aside>
+
+            <!-- 编辑区域 -->
+            <section class="chat-container">
+                <div class="chat-header">
+                    <h3><i class="fas fa-code"></i> Prompt内容编辑</h3>
+                </div>
+
+                <div class="chat-messages" style="flex:1;padding:20px;">
+                    <div class="var-list" id="varList" style="margin-bottom:15px;">
+                        <strong>可用变量（点击插入）:</strong>
+                    </div>
+                    
+                    <textarea id="promptEditor" class="prompt-editor-area" placeholder="在此编辑Prompt内容..."></textarea>
+                    
+                    <div class="backup-section" id="backupSection">
+                        <h4><i class="fas fa-history"></i> 副本管理</h4>
+                        <div id="backupList"></div>
+                    </div>
+
+                    <div class="test-result" id="testResult" style="display:none;">
+                        <h4><i class="fas fa-robot"></i> 测试结果</h4>
+                        <div id="testResultContent"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 加载动画 -->
+        <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>处理中...</p>
+            </div>
+        </div>
+
+        <!-- 通知系统 -->
+        <div class="notifications" id="notifications"></div>
+    </div>
+
+    <!-- 使用重构的 JS 文件 -->
+    <script src="prompt_editor_new.js"></script>
+</body>
+</html>
